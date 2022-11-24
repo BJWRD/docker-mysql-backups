@@ -19,7 +19,8 @@ Enter Image here
       cd docker-mysql-backups
       
 ## Docker Secrets
-To ensure that the MySQL DB password is not specified within the docker-compose.yml file we will be including the password within a Docker Secret instead.
+### 1. Creating the Secrets
+To ensure that the MySQL DB passwords is not specified within the docker-compose.yml file we will be including the DB password and the root DB password within Docker Secrets instead.
 
 As Docker Secrets is a Docker Swarm feature, our first step will be to ensure that the host is initialised as a Docker Swarm orchestrator. Specify the VM IP address within the command below -
 
@@ -42,6 +43,25 @@ List the Docker Secret for verification
      docker secret ls
 
 Enter Image 3
+
+### 2. Consuming the Secret
+Once the Secret has been created, it will then need to be consumed by a service.
+
+      docker service create --name mysql_db --secret my_secret mysql
+      
+Enter Image 4
+
+Enter the following command for service verification -
+
+      docker service ls
+      
+Enter Image 5
+      
+Now only the created service is able to use the password, and since our service is running one container, only this container can see the secret. In other words, when a secret is attached to a service, only this service and its tasks have access to this sensitive data. The secret is now stored to a temporary file system (tmpfs) under */run/secrets/my_secret*
+
+For further verification that the running Container is using the Secret service enter the following command -
+
+      docker exec -it <Docker PID> cat /run/secret/my_secret
 
 ## Run MySQL Container
 Before we begin the MySQL Setup, we need to ensure that Docker and Docker-Compose has been installed on the VM you are using. Please follow the steps within the 'Prerequisites' section to get started.
