@@ -1,16 +1,20 @@
 version: '3.9'
 services:
-      db:
+      mysql:
          image: mysql:latest
          command: --default-authentication-plugin=mysql_native_password
          environment:
             MYSQL_USER: 'db_user'
-            MYSQL_PASSWORD_FILE: /home/docker-mysql-backups/my_secret_file
             MYSQL_DB: 'my_db'
+            MYSQL_PASSWORD_FILE: db_password
+            MYSQL_ROOT_PASSWORD_FILE: db_root_password
          secrets:
-         - my_secret_file
+         - db_password
+         - db_root_password
          ports:
          - 8080:8080
-secrets:
-   my_secret_file:
-      external: true
+secrets: 
+  db_password:
+    file: /home/docker-mysql-backups/db_password
+  db_root_password:
+    file: /home/docker-mysql-backups/db_root_password
