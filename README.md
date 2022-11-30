@@ -1,9 +1,9 @@
 # docker-mysql-backups
-[MySQL](https://www.mysql.com/) Database, provisioned and hosted via [Docker-Compose](https://docs.docker.com/compose/install/). Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/) implementation and then the MySQL Database Backups.
+[MySQL](https://www.mysql.com/) Database, provisioned and hosted via [Docker-Compose](https://docs.docker.com/compose/install/). Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/) implementation and then a Database Backup.
 
 ## Architecture
 
-Enter Image here
+<img width="439" alt="image" src="https://user-images.githubusercontent.com/83971386/204824961-38a8b22d-675b-45fe-a290-7bef555ca0dc.png">
 
 ## Prerequisites
 * Docker installation - [steps](https://docs.docker.com/engine/install/)
