@@ -34,6 +34,8 @@ Once the VM has been Docker Swarm Initialised, you will need to create your exte
      echo "hello" | docker secret create db_password -
      echo "hello" | docker secret create db_root_password -
 
+**NOTE:** Ensure you do not share the password above with anyone else.
+
 <img width="635" alt="image" src="https://user-images.githubusercontent.com/83971386/204332519-55f077a1-ea3b-4f43-85d3-8f546b11e178.png">
 
 ### 3. Stack Deployment
@@ -89,8 +91,46 @@ Now that Trivy has scanned the MySQL image, you are now in the position to be ab
       cat mysql_vulnerability_output
 
 ## MySQL Database Setup
+Now that the MySQL Docker Container is running, the first step is to login using your root account and password -
+
+      mysql -u root -p
+      
+From here onwards it's up to you how you would like to tailor the Database to your own needs, but to help you get started, I've listed some key MySQL commands below which may be useful -
+
+      HELP;
+      
+      SHOW databases;
+      
+      CREATE database <db name>;
+      
+      use <db name>;
+      
+      drop <db name>;
+      
+      SHOW tables;
+      
+      CREATE table <table name>;
+      
+      use <table name>;
+      
+      drop <table name>;
+      
+For more MySQL commands, please visit the following site - https://w3cschoool.com/tutorial/mysql-commands-cheat-sheet
 
 ## Connecting to MySQL WorkBench
+To access the Database via MySQL WorkBench follow the steps below -
+
+### 1. Download MySQL WorkBench
+You can download MySQL WorkBench from the following Oracle site - https://dev.mysql.com/downloads/workbench/
+
+### 2. Setup and Connection
+Once downloaded and installed on your machine, specify the following connection details to establish a connection to the DB 
+
+Enter Image
+
+**NOTE:** You will need to alter the IP address to your own VM's IP.
+
+### 3. Operating the GUI
 
 ## MySQL Database Backups
 
@@ -106,3 +146,9 @@ In this project, we have.....
 * [Virtualbox](https://www.virtualbox.org) 
 * [MySQL](https://www.mysql.com/)
 * [Trivy](https://www.aquasec.com/products/trivy/)
+
+## Useful Links -
+* https://stackoverflow.com/questions/42139605/how-do-you-manage-secret-values-with-docker-compose-v3-1
+* https://w3cschoool.com/tutorial/mysql-commands-cheat-sheet
+* https://dev.mysql.com/downloads/workbench/
+* [https://stackoverflow.com/questions/33827342/how-to-connect-mysql-workbench-to-running-mysql-inside-docker](https://stackoverflow.com/questions/33827342/how-to-connect-mysql-workbench-to-running-mysql-inside-docker#:~:text=1%20Specify%20mysql%20configuration%20block%20in%20your%20docker-compose.yml.,your%20MySQL%20Workbench%20provide%20the%20connection%20details.%20)
