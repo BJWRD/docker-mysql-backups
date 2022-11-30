@@ -1,5 +1,5 @@
 # docker-mysql-backups
-[MySQL](https://www.mysql.com/) Database, provisioned via [Docker-Compose](https://docs.docker.com/compose/install/) and hosted within a [Docker](https://www.docker.com/) container. Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/) setup and Database backup/restore.
+[MySQL](https://www.mysql.com/) Database, provisioned and hosted via [Docker-Compose](https://docs.docker.com/compose/install/). Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/) implementation and then the MySQL Database Backups.
 
 ## Architecture
 
@@ -139,11 +139,18 @@ Access the MySQL WorkBench GUI and you can begin to execute any query that you m
 
 
 ## MySQL Database Backups
+To perform a MySQL Database dump, execute the following command -
 
+      docker exec -it 7b4efde3d7c7 /usr/bin/source -u root -p <password> mysql > /tmp/backup_db.sql
 
+This will result in a backup file which can be found within your host's */tmp* directory -
+
+<img width="806" alt="image" src="https://user-images.githubusercontent.com/83971386/204821076-6ebc22fe-eb12-4fe7-bf4c-4c59203d8552.png">
+
+Ideally, you would want to create a Cronjob including this command so your MySQL Database is backed up on a daily.
 
 ## Conclusion
-In this project, we have.....
+In this project, we have provisioned a local MySQL Docker Container with it's passwords being masked by Docker Secrets. The vulnerabilites associated with the MySQL image would have been identified using Trivy, MySQL WorkBench has been used to connect to the Database and Database Backups have also been performed.
 
 ## List of tools/services used
 * [Docker](https://www.docker.com/)
