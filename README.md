@@ -1,5 +1,5 @@
 # docker-mysql-backups
-[MySQL](https://www.mysql.com/) Database, provisioned via [Docker-Compose](https://docs.docker.com/compose/install/) and hosted within a [Docker](https://www.docker.com/) container. Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, Docker Secrets setup and Database backup/restore.
+[MySQL](https://www.mysql.com/) Database, provisioned via [Docker-Compose](https://docs.docker.com/compose/install/) and hosted within a [Docker](https://www.docker.com/) container. Including a [Trivy](https://www.aquasec.com/products/trivy/) Image Scan, [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/) setup and Database backup/restore.
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Enter Image here
 ### 1. Docker Swarm Initialisation
 To ensure that the MySQL DB password's are not specified within the docker-compose.yml file we will be including the DB password and the root DB password within Docker Secrets instead.
 
-As Docker Secrets is a Docker Swarm feature, our first step will be to ensure that the host is initialised as a Docker Swarm orchestrator. Specify the VM IP address within the command below -
+As Docker Secrets is a Docker Swarm feature, our first step will be to ensure that the host is initialised as a Docker Swarm orchestrator. Specify your VM IP address within the command below -
 
     docker swarm init --advertise-addr 192.168.56.134
 
@@ -62,7 +62,7 @@ You can now verify that the Docker Container is running with the Secrets correct
 
 <img width="580" alt="image" src="https://user-images.githubusercontent.com/83971386/204336989-e9bfefe0-9759-4dc1-9b3b-ba66cdde1a9c.png">
 
-If all is well, the two secrets we created *db_password* and *db_root_password* should be within the containers */run/secrets* directory, following the stack deployment (see above).
+If all is well, the two secrets we created *db_password* and *db_root_password* should be within the containers */run/secrets* directory, following the stack deployment (see imagery above).
       
 ## Trivy Image Scan
 Now that the mysql image has been pulled down onto the VM following the *docker stack deploy*, we will now be able to run a Trivy scan on the image to identify any vulnerabilities.
@@ -86,16 +86,16 @@ Execute the Trivy Script (This will install the trivy software)
 <img width="611" alt="image" src="https://user-images.githubusercontent.com/83971386/204343266-0379f665-82e3-4bcd-824a-8b7632adfc3d.png">
       
 ### 3. Review Vulnerabilites 
-Now that Trivy has scanned the MySQL image, you are now in the position to be able to remediate any vulnerabilites which are associated with the image which have been picked up.
+Now that Trivy has scanned the MySQL image, you are now in the position to be able to remediate any vulnerabilites which are associated with the image which have been identified.
 
       cat mysql_vulnerability_output
 
-## MySQL Database Setup
+## MySQL Database Access
 Now that the MySQL Docker Container is running, the first step is to login using your root account and password -
 
       mysql -u root -p
       
-From here onwards it's up to you how you would like to tailor the Database to your own needs, but to help you get started, I've listed some key MySQL commands below which may be useful -
+From here onwards it's up to you how you would like to tailor the Database to your own needs, but to help you get started, I've listed some key MySQL commands below which may be of use -
 
       HELP;
       
@@ -126,11 +126,17 @@ You can download MySQL WorkBench from the following Oracle site - https://dev.my
 ### 2. Setup and Connection
 Once downloaded and installed on your machine, specify the following connection details to establish a connection to the DB 
 
-Enter Image
+<img width="444" alt="image" src="https://user-images.githubusercontent.com/83971386/204785257-07298d11-a68c-47eb-88dc-cfda331095de.png">
 
 **NOTE:** You will need to alter the IP address to your own VM's IP.
 
+<img width="204" alt="image" src="https://user-images.githubusercontent.com/83971386/204785339-83626d93-6abf-4963-869b-3e40f3a9f9d4.png">
+
 ### 3. Operating the GUI
+Access the MySQL WorkBench GUI and you can begin to execute any query that you may or may not need -
+
+<img width="506" alt="image" src="https://user-images.githubusercontent.com/83971386/204785632-1ef62fee-5d7a-4844-8323-87b749602193.png">
+
 
 ## MySQL Database Backups
 
